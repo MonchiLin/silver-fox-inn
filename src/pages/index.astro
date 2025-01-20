@@ -1,11 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {Server} from "../constants/server.constants";
-import {GetPages} from "../components/page/GetPages";
-
-const response = await fetch(Server.BASE_URL + '/api/pages');
-const data = await response.json();
-console.log("data", data)
+import GetPages from '../components/page/GetPages';
 
 ---
 
