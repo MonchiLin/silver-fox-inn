@@ -1,5 +1,4 @@
 import type { APIRoute } from "astro"
-import {Client} from "@notionhq/client";
 
 export const GET: APIRoute = ({ params, request }) => {
 	return new Response(JSON.stringify({
