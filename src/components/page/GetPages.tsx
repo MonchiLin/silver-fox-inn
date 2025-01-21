@@ -1,5 +1,9 @@
+import {NotionApi} from "@/venders/notion-api.ts";
+
 export default function GetPages() {
+  const href = NotionApi.getCallbackUrl()
+
   return <div>
-    <button>获取页面</button>
+    <a href={href}>GOGO</a>
   </div>
 }

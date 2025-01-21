@@ -1,12 +1,12 @@
 import type {APIRoute} from "astro"
 import {NotionApi} from "@/venders/notion-api.ts";
 import {idToUuid} from "notion-utils";
-import {Envs} from "@/constants/env.constants.ts";
+import {Notion} from "@/constants/notion.constants.ts";
 
 export const GET: APIRoute = async ({params, request}) => {
-  const id = idToUuid(Envs.NOTION_PAGE_ID)
+  const id = idToUuid(Notion.NOTION_PAGE_ID)
 
-  const response = await NotionApi.getPage(id)
+  const response = await NotionApi.api.getPage(id)
 
   return new Response(JSON.stringify(response))
 }
