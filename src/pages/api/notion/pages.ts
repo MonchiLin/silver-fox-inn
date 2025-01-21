@@ -4,7 +4,7 @@ import {Notion} from "@/constants/notion.constants.ts";
 import {NotionApi} from "@/venders/notion-api.ts";
 
 export const GET: APIRoute = async ({params, request}) => {
-  const id = idToUuid(Notion.NOTION_PAGE_ID)
+  // const id = idToUuid(Notion.NOTION_PAGE_ID)
 
   const response = await NotionApi.client.search({})
 
