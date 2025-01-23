@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "bunx --bun astro dev --host",
-    "build": "bunx --bun astro build",
+    "build": "astro build",
     "build:vercel": "bunx --bun astro build --adapter vercel",
-    "preview": "bunx --bun astro preview",
+    "preview": "astro preview",
     "astro": "bunx --bun astro"
   },
   "dependencies": {
