@@ -6,6 +6,7 @@ import tailwind from '@astrojs/tailwind';
 import {loadEnv} from "vite";
 import sitemap from '@astrojs/sitemap';
 import compressor from 'astro-compressor';
+import netlify from '@astrojs/netlify';
 
 import node from '@astrojs/node';
 
@@ -25,6 +26,10 @@ if (argv.includes("--adapter")) {
       },
       isr: true,
       imageService: true,
+    })
+  } else if (argv.includes("netlify")) {
+    adapter = netlify({
+      imageCDN: true,
     })
   } else {
     adapter = node({

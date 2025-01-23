@@ -6,6 +6,7 @@
     "dev": "bunx --bun astro dev --host",
     "build": "astro build",
     "build:vercel": "bunx --bun astro build --adapter vercel",
+    "build:netlify": "bunx --bun astro build --adapter netlify",
     "preview": "astro preview",
     "astro": "bunx --bun astro"
   },
@@ -31,6 +32,7 @@
     "react-notion-x": "7.2.6"
   },
   "devDependencies": {
+    "@astrojs/netlify": "^6.1.0",
     "@astrojs/react": "4.1.6",
     "@astrojs/tailwind": "5.1.5",
     "@astrojs/vercel": "8.0.2",
