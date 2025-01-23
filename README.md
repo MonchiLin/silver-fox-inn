@@ -5,4 +5,6 @@
 https://www.notion.so/profile/integrations
 
 
+## Resources
 
+[Astro Tips](https://astro-tips.dev/)

@@ -5,4 +5,4 @@ export const App = {
   SSR: import.meta.env.SSR,
   DEV: import.meta.env.DEV,
   BASE_URL: BASE_URL.origin,
-}
+} as const

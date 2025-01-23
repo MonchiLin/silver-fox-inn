@@ -1,8 +1,15 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import OAuthSuccessful from "@/components/notion/oauth/oauth-successful";
+import OAuthSuccessful from "@/components/page/notion/oauth/oauth-successful";
+import type {NotionApiTypes} from "@/utils/api/notion.api.types";
+import {httpClient} from "@/utils/http-client";
+
+export const prerender = false
+const accessToken = Astro.url.searchParams.get("accessToken");
+const searchResponse = (await httpClient.get<NotionApiTypes.SearchResponse>("/api/notion/search")).$;
+
 ---
 
 <Layout>
-    <OAuthSuccessful client:only="react"/>
+  <OAuthSuccessful client:only="react" searchResponse={searchResponse} accessToken={accessToken}/>
 </Layout>

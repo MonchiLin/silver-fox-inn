@@ -1,0 +1,14 @@
+---
+import {Notion} from "../../constants/notion.constants";
+import Layout from "@/layouts/Layout.astro";
+export function getStaticPaths() {
+  return Notion.NOTION_PAGES
+    .map(i => {
+      return {params: {pageId: i}}
+    });
+}
+---
+
+<Layout>
+
+</Layout>

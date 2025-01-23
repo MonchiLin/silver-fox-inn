@@ -1,15 +1,12 @@
-import {NotionAPI as NotionClient} from "notion-client";
-import {Client} from "@notionhq/client";
 import {Notion} from "@/constants/notion.constants.ts";
+import {idToUuid as _idToUuid} from "notion-utils";
+import {Client} from '@notionhq/client'
+import {NotionCompatAPI} from 'notion-compat'
+import {nanoid} from "nanoid";
 
 export namespace NotionApi {
-  export const api = new NotionClient({
-    authToken: Notion.NOTION_TOKEN,
-  })
 
-  export const client = new Client({
-    auth: Notion.NOTION_TOKEN,
-  })
+  export const api = new NotionCompatAPI(new Client({ auth: Notion.NOTION_TOKEN }))
 
   export const getAccessToken = (code: string) => {
     const encoded = Buffer.from(`${Notion.NOTION_OAUTH_CLIENT_ID}:${Notion.NOTION_OAUTH_CLIENT_SECRET}`).toString("base64");
@@ -30,7 +27,10 @@ export namespace NotionApi {
       .then(res => res.json());
   }
 
-  export const getCallbackUrl = () => {
-    return `https://api.notion.com/v1/oauth/authorize?client_id=${Notion.NOTION_OAUTH_CLIENT_ID}&response_type=code&owner=user&redirect_uri=${decodeURIComponent(Notion.NOTION_CALLBACK_URL)}`
+  export const getNotionAuthorizationUrl = () => {
+    return `https://api.notion.com/v1/oauth/authorize?client_id=${Notion.NOTION_OAUTH_CLIENT_ID}&response_type=code&owner=user&redirect_uri=${decodeURIComponent(Notion.NOTION_CALLBACK_URL)}&state=${nanoid()}`
   }
+
+  export const idToUuid = _idToUuid;
+
 }

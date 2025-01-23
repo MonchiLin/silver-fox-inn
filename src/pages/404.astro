@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WebsiteConfig from "../../website.config";
+
+export const title = "404 Not Found - " + WebsiteConfig.title;
+---
+
+<Layout title={title}>
+  <div class="text-black bg-white dark:text-white dark:bg-black w-full h-full flex items-center justify-center">
+    <h1 class="inline-block m-0 mr-5 pr-[23px] text-2xl font-medium align-top leading-[49px] border-r">
+      404
+    </h1>
+    <div class="inline-block">
+      <h2 class="text-sm font-normal leading-[49px] m-0">
+        This page could not be found.
+      </h2>
+    </div>
+  </div>
+</Layout>
