@@ -17,7 +17,7 @@ const argv = process.argv
 /** @type {import('astro').AstroIntegration | null} */
 let adapter;
 
-if (argv.includes("adapter")) {
+if (argv.includes("--adapter")) {
   if (argv.includes("vercel")) {
     adapter = vercel({
       webAnalytics: {
