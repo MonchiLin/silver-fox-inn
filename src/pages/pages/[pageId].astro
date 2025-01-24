@@ -20,6 +20,8 @@ export function getStaticPaths() {
     });
 }
 
+Astro.locals.cache(60);
+
 const data = (await httpClient.get<NotionApiTypes.GetPageResponse>("/api/notion/pages/" + Astro.params.pageId)).$;
 ---
 
