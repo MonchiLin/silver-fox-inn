@@ -1,14 +1,31 @@
 ---
-import {Notion} from "../../constants/notion.constants";
+import {Notion} from "@/constants/notion.constants";
 import Layout from "@/layouts/Layout.astro";
+import {httpClient} from "@/utils/http-client";
+import {NotionApiTypes} from "@/utils/api/notion.api.types";
+import { NotionRenderer } from 'react-notion-x'
+// core styles shared by all of react-notion-x (required)
+import 'react-notion-x/src/styles.css'
+
+// used for code syntax highlighting (optional)
+import 'prismjs/themes/prism-tomorrow.css'
+
+// used for rendering equations (optional)
+import 'katex/dist/katex.min.css'
+
 export function getStaticPaths() {
   return Notion.NOTION_PAGES
     .map(i => {
       return {params: {pageId: i}}
     });
 }
+
+const data = (await httpClient.get<NotionApiTypes.GetPageResponse>("/api/notion/pages/" + Astro.params.pageId)).$;
+
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+Astro.response.headers.set('X-ISR-State', 'while-revalidate');
 ---
 
 <Layout>
-
+  <NotionRenderer recordMap={data} fullPage={true} darkMode={false} />
 </Layout>

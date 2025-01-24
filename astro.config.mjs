@@ -30,6 +30,7 @@ if (argv.includes("--adapter")) {
   } else if (argv.includes("netlify")) {
     adapter = netlify({
       imageCDN: true,
+      cacheOnDemandPages: true,
     })
   } else {
     adapter = node({
@@ -46,6 +47,6 @@ if (argv.includes("--adapter")) {
 export default defineConfig({
   integrations: [react(), tailwind(), sitemap(), compressor()],
   adapter: adapter,
-  output: "server",
+  output: "static",
   site: env.PUBLIC_HOSTING_URL,
 });
