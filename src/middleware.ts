@@ -5,6 +5,7 @@ import type {APIContext} from "astro";
 const shouldSkipCache = (req: APIContext) => {
   // Skip the cache if the request is not a GET request.
   if (req.request.method !== "GET") return true;
+  if (req.request.url.startsWith("/secrets")) return true;
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -16,7 +17,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   if (shouldSkipCache(context)) return next();
   const cachedResponse = isrService.get(key);
-  if (cachedResponse) return cachedResponse;
+  if (cachedResponse) return cachedResponse.state;
 
   const response = await next();
   if (ttl !== undefined) isrService.set(key, response, ttl);

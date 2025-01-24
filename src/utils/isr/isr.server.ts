@@ -1,19 +1,23 @@
-import type {ISRCache} from "@/utils/isr/isr.cache.interface.ts";
-import {MemoryCache} from "@/utils/isr/isr.memory.cache.ts";
+import type {CacheEntry, ISRCache} from "./isr.cache.interface.ts";
+import {ISRCacheMemory} from "./isr.cache.memory.ts";
+import {type ISRApiTypes} from "@/utils/api/isr.api.types.ts";
 
-export class ISRService implements ISRCache<Response> {
-  constructor(private cache: ISRCache<Response>) {
+export class ISRService {
+  constructor(private cache: ISRCache) {
   }
 
-  all() {
-    return this.cache.all();
+  all(): ISRApiTypes.CacheState[] {
+    return [...this.cache.all()]
+      .map(([key, value]) => {
+        return {
+          ...value,
+          key,
+        }
+      })
   }
 
-  get(key: string): Response | undefined {
-    const result = this.cache.get(key);
-    if (!result) return undefined;
-    // Clone the response so that we don't modify the original.
-    return result.clone();
+  get(key: string): CacheEntry | undefined {
+    return this.cache.get(key);
   }
 
   set(key: string, value: Response, ttl: number): void {
@@ -30,9 +34,5 @@ export class ISRService implements ISRCache<Response> {
   }
 }
 
-const cache = new MemoryCache<Response>();
+const cache = new ISRCacheMemory();
 export const isrService = new ISRService(cache);
-
-export function invalidate(key: string) {
-  isrService.del(key);
-}

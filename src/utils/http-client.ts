@@ -45,6 +45,14 @@ export class HttpClient {
       url,
     })
   }
+
+  async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<UnwrapResult<T>> {
+    return this.axios.request({
+      ...config,
+      method: "delete",
+      url,
+    })
+  }
 }
 
 export const httpClient = new HttpClient()

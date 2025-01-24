@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "astro build",
+    "build": "bunx --bun astro build",
     "build:vercel": "bunx --bun astro build --adapter vercel",
     "build:netlify": "bunx --bun astro build --adapter netlify",
     "preview": "astro preview",
@@ -30,7 +30,8 @@
     "notion-utils": "7.1.6",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-notion-x": "7.2.6"
+    "react-notion-x": "7.2.6",
+    "dayjs": "1.11.13"
   },
   "devDependencies": {
     "@astrojs/netlify": "^6.1.0",

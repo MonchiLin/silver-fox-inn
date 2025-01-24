@@ -1,16 +1,14 @@
-export interface ISRCache<P> {
-  // Get a value from the cache.
-  get(key: string): P | undefined;
-  // Set a value in the cache.
-  set(key: string, value: P, ttl: number): void;
-  // Delete a value from the cache.
+export interface ISRCache {
+  get(key: string): CacheEntry | undefined;
+  set(key: string, value: Response, ttl: number): void;
   del(key: string): void;
 
   cleanUp(): void;
-  all(): Map<string, CacheEntry<P>>;
+
+  all(): Map<string, CacheEntry>;
 }
 
-export type CacheEntry<P> = {
-  value: P;
+export type CacheEntry = {
+  state: Response;
   expiration: number;
 };

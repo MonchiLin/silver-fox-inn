@@ -1,22 +1,22 @@
 import type {CacheEntry, ISRCache} from "@/utils/isr/isr.cache.interface.ts";
 
-export class MemoryCache<P> implements ISRCache<P> {
-  private cache: Map<string, CacheEntry<P>> = new Map();
+export class ISRCacheMemory implements ISRCache {
+  private cache: Map<string, CacheEntry> = new Map();
 
   constructor() {
     setInterval(() => this.cleanUp(), 60 * 1000);
   }
 
-  get(key: string): P | undefined {
+  get(key: string): CacheEntry | undefined {
     const entry = this.cache.get(key);
     if (!entry) return undefined;
     if (entry.expiration < Date.now()) return undefined;
-    return entry.value;
+    return entry;
   }
 
-  set(key: string, value: P, ttl: number): void {
+  set(key: string, value: Response, ttl: number): void {
     this.cache.set(key, {
-      value,
+      state: value,
       expiration: Date.now() + ttl * 1000,
     });
   }
