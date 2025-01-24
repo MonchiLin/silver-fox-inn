@@ -1,9 +1,9 @@
-import rss, { pagesGlobToRssItems } from '@astrojs/rss';
+import rss, {pagesGlobToRssItems} from '@astrojs/rss';
 import type {APIRoute} from "astro";
 import WebsiteConfig from "../../website.config.ts";
 
 // WIP
-export const GET: APIRoute = async ({ request, site }) => {
+export const GET: APIRoute = async ({request, site}) => {
   return rss({
     title: WebsiteConfig.title,
     description: WebsiteConfig.description,

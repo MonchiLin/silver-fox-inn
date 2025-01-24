@@ -1,10 +1,9 @@
-import {Button, ButtonGroup, Chip, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip} from "@heroui/react";
+import {Button, ButtonGroup, Chip, Link, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@heroui/react";
 import {DeleteIcon, LinkIcon} from "@heroui/shared-icons";
 import {useState} from "react";
 import {useDocumentWasVisible} from "@/utils/hooks/use-document-was-visibility.ts";
 import {httpClient} from "@/utils/http-client.ts";
 import type {ISRApiTypes} from "@/utils/api/isr.api.types.ts";
-import {Notion} from "@/constants/notion.constants.ts";
 import {App} from '@/constants/app.constants.ts'
 
 type Props = {
@@ -37,6 +36,10 @@ export default function IsrStatesTable(props: Props) {
       .then(() => {
         getCaches();
       })
+  }
+
+  const getHref = (item: ISRApiTypes.CacheState) => {
+    return `${App.BASE_URL}${item.key}`
   }
 
   useDocumentWasVisible(() => {
@@ -75,7 +78,9 @@ export default function IsrStatesTable(props: Props) {
               <TableCell>
                 <div className="relative flex items-center gap-2">
                   <DeleteIcon onClick={() => handleDelete(item)} className="text-lg text-danger cursor-pointer active:opacity-50"/>
-                  <LinkIcon onClick={() => handleOpen(item)} className="text-lg cursor-pointer active:opacity-50"/>
+                  <Link href={getHref(item)} className="text-lg cursor-pointer active:opacity-50">
+                    <LinkIcon/>
+                  </Link>
                 </div>
               </TableCell>
             </TableRow>

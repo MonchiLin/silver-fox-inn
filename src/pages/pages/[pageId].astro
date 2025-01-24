@@ -3,7 +3,7 @@ import {Notion} from "@/constants/notion.constants";
 import Layout from "@/layouts/Layout.astro";
 import {httpClient} from "@/utils/http-client";
 import {NotionApiTypes} from "@/utils/api/notion.api.types";
-import { NotionRenderer } from 'react-notion-x'
+import {NotionRenderer} from 'react-notion-x'
 // core styles shared by all of react-notion-x (required)
 import 'react-notion-x/src/styles.css'
 
@@ -26,5 +26,5 @@ const data = (await httpClient.get<NotionApiTypes.GetPageResponse>("/api/notion/
 ---
 
 <Layout>
-  <NotionRenderer recordMap={data} fullPage={true} darkMode={false} />
+  <NotionRenderer recordMap={data} fullPage={true} darkMode={false}/>
 </Layout>

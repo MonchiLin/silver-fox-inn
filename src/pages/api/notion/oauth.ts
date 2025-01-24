@@ -4,7 +4,7 @@ import {NotionApi} from "@/venders/notion-api.ts";
 
 export const prerender = false
 
-export const GET: APIRoute = async ({ params, request }) => {
+export const GET: APIRoute = async ({params, request}) => {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");

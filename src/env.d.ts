@@ -1,7 +1,8 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly NOTION_TOKEN: string;
+  readonly NOTION_ACCESS_TOKEN: string;
+  readonly NOTION_TOKEN_V2: string;
   readonly NOTION_PAGES: string;
   readonly NOTION_DATABASES: string;
   readonly NOTION_OAUTH_CLIENT_ID: string;

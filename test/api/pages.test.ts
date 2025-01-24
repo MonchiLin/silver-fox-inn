@@ -1,5 +1,5 @@
 import {expect, test} from 'vitest';
 
 test('Truth', async () => {
-	expect(1).eq(1);
+  expect(1).eq(1);
 });

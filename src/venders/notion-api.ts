@@ -6,7 +6,7 @@ import {nanoid} from "nanoid";
 
 export namespace NotionApi {
 
-  export const api = new NotionCompatAPI(new Client({ auth: Notion.NOTION_TOKEN }))
+  export const api = new NotionCompatAPI(new Client({auth: Notion.NOTION_ACCESS_TOKEN}))
 
   export const getAccessToken = (code: string) => {
     const encoded = Buffer.from(`${Notion.NOTION_OAUTH_CLIENT_ID}:${Notion.NOTION_OAUTH_CLIENT_SECRET}`).toString("base64");
@@ -32,5 +32,5 @@ export namespace NotionApi {
   }
 
   export const idToUuid = _idToUuid;
-
+  export const uuidToId = (uuid: string) => uuid;
 }

@@ -1,7 +1,7 @@
 import {type NotionApiTypes} from "@/utils/api/notion.api.types.ts";
 import SearchResponseTable from "@/components/ui/notion/search-response-table.tsx";
 import {Link, Snippet} from "@heroui/react";
-import {downloadEnvFile, getEnvFileBlobURL} from "@/utils/setup.ts";
+import {getEnvFileBlobURL} from "@/utils/setup.ts";
 import {useMemo, useState} from "react";
 import type {Selection} from "@react-types/shared/src/selection";
 

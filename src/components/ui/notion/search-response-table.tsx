@@ -1,6 +1,8 @@
 import type {NotionApiTypes} from "@/utils/api/notion.api.types.ts";
-import {Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@heroui/react";
+import {Link, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@heroui/react";
 import type {Selection} from "@react-types/shared/src/selection";
+import {App} from "@/constants/app.constants.ts";
+import {NotionLib} from "@/venders/notion-lib.ts";
 
 type Props = {
   searchResponse: NotionApiTypes.SearchResponse
@@ -19,6 +21,10 @@ const getTitle = (item: any) => {
 
 export default function SearchResponseTable(props: Props) {
 
+  const buildHref = (item: any) => {
+    return `${App.BASE_URL}/pages/${NotionLib.uuidToId(item.id)}`
+  }
+
   return (
     <Table
       selectedKeys={props.selectedKeys}
@@ -31,6 +37,7 @@ export default function SearchResponseTable(props: Props) {
         <TableColumn>NAME</TableColumn>
         <TableColumn>TYPE</TableColumn>
         <TableColumn>ID</TableColumn>
+        <TableColumn><span/></TableColumn>
       </TableHeader>
       <TableBody>
         {
@@ -39,6 +46,10 @@ export default function SearchResponseTable(props: Props) {
               <TableCell>{getTitle(item)}</TableCell>
               <TableCell className={"capitalize"}>{item.object}</TableCell>
               <TableCell>{item.id}</TableCell>
+              <TableCell>
+                <Link target={"_blank"} showAnchorIcon href={buildHref(item)} className="text-lg active:opacity-50"/>
+              </TableCell>
+
             </TableRow>
           })
         }

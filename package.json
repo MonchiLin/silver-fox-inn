@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "bunx --bun astro build",
+    "build": "bunx ReadableStream is locked--bun astro build",
     "build:vercel": "bunx --bun astro build --adapter vercel",
     "build:netlify": "bunx --bun astro build --adapter netlify",
     "preview": "astro preview",
@@ -19,7 +19,7 @@
     "@nanostores/react": "^0.8.4",
     "@notionhq/client": "2.2.15",
     "@uidotdev/usehooks": "^2.4.1",
-    "astro": "5.1.7",
+    "astro": "5.1.9",
     "axios": "1.7.9",
     "clsx": "2.1.1",
     "framer-motion": "12.0.1",

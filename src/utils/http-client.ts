@@ -24,6 +24,13 @@ export class HttpClient {
 
         // @ts-ignore
         res.msg = res.data.msg
+      } else if (res.data) {
+        // @ts-ignore
+        res.$ = res.data
+        // @ts-ignore
+        res.code = res.status
+        // @ts-ignore
+        res.msg = res.statusText
       }
       return Promise.resolve(res)
     })

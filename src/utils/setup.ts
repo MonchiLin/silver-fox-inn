@@ -15,7 +15,7 @@ export function downloadEnvFile(params: GeneratorApiTypes.EnvParameters) {
     content += `NOTION_DATABASES=${params.notionDatabases.join(",")}\n`
   }
 
-  const blob = new Blob([content], { type: 'text/plain; charset=utf-8' });
+  const blob = new Blob([content], {type: 'text/plain; charset=utf-8'});
 
   const url = URL.createObjectURL(blob);
 
@@ -46,7 +46,7 @@ export function getEnvFileBlobURL(params: GeneratorApiTypes.EnvParameters) {
     content += `NOTION_DATABASES=${params.notionDatabases.map(i => i.replaceAll("-", "")).join(",")}\n`
   }
 
-  const blob = new Blob([content], { type: 'text/plain; charset=utf-8' });
+  const blob = new Blob([content], {type: 'text/plain; charset=utf-8'});
 
   const url = URL.createObjectURL(blob);
 

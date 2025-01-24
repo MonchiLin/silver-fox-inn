@@ -1,6 +1,5 @@
 import type {APIRoute} from "astro"
 import {Result} from "@/utils/result.ts";
-import {isrService} from "@/utils/isr/isr.server.ts";
 import {Notion} from "@/constants/notion.constants.ts";
 import {App} from "@/constants/app.constants.ts";
 

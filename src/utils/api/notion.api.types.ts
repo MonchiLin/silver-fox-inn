@@ -1,4 +1,3 @@
-import type {Result} from "@/utils/result.ts";
 import type Types from "@notionhq/client/build/src/api-endpoints";
 
 type WithAuth<P> = P & {
@@ -11,4 +10,10 @@ export namespace NotionApiTypes {
   export type GetPageResponse = Types.GetPageResponse
 
   export type SearchParameters = WithAuth<Types.SearchParameters>
+  export type AnalyticsParameters = { pageId: number, spaceId: number }
+  export type AnalyticsResponse = {
+    ds: string
+    totalViews: number
+    uniqueViews: number
+  }
 }
