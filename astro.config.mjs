@@ -24,7 +24,7 @@ if (argv.includes("--adapter")) {
       webAnalytics: {
         enabled: true,
       },
-      isr: false,
+      isr: true,
       imageService: true,
     })
   } else if (argv.includes("netlify")) {
