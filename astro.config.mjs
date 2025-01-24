@@ -46,6 +46,6 @@ if (argv.includes("--adapter")) {
 export default defineConfig({
   integrations: [react(), tailwind(), sitemap(), compressor()],
   adapter: adapter,
-  output: "static",
+  output: "server",
   site: env.PUBLIC_HOSTING_URL,
 });
