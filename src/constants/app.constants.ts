@@ -1,14 +1,32 @@
 import path from "path";
+import os from "os";
+import {snakeCase} from "lodash-es";
 
 const PUBLIC_HOSTING_URL = import.meta.env.PUBLIC_HOSTING_URL
 const BASE_URL = new URL(PUBLIC_HOSTING_URL)
 
 function getCacheRoot() {
+  return os.tmpdir()
+
+  if (process.argv.includes("dev")) {
+    return path.join(process.cwd(), 'public', 'isr')
+  }
+  if (process.argv.includes("build")) {
+    return path.join(process.cwd(), 'public', 'isr')
+  }
+  if (process.argv.includes("preview")) {
+    return path.join(process.cwd(), 'client', 'isr')
+  }
+  const last = process.argv[process.argv.length - 1]
+  if (last.endsWith("js")) {
+    return path.join(process.cwd(), 'client', 'isr')
+  }
+
   return path.join(process.cwd())
 }
 
 function getISRCacheRoot() {
-  return path.join(getCacheRoot(), 'isr')
+  return path.join(getCacheRoot(), snakeCase("silver-fox-inn"), 'isr')
 }
 
 export const App = {
@@ -20,11 +38,3 @@ export const App = {
   PUBLIC_PATH: getCacheRoot(),
   ISR_CACHE_PATH: getISRCacheRoot(),
 } as const
-
-const p1 = import.meta.env
-const p2 = process.env
-const p3 = process.argv
-
-console.log("meta Env", p1)
-console.log("process Env", p2)
-console.log("process Argv", p3)
