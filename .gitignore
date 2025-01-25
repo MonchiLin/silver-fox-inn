@@ -24,3 +24,10 @@ pnpm-debug.log*
 .idea/
 
 .vercel
+
+# 忽略 public/isr 下的所有内容
+public/isr/*
+# 保留 .gitkeep 文件（确保目录存在）
+!public/isr/.gitkeep
+# 保留 isr 文件夹本身（防止父目录被完全忽略）
+!public/isr/
