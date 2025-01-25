@@ -175,6 +175,21 @@ export class IsrCacheFilesystem implements ISRCache {
     );
   }
 
+  async clear() {
+    await this.ensureReady();
+    const keys = Object.keys(this.index);
+
+    await this.parallelWithConcurrency(
+      keys.map(key => async () => {
+        await this.safeUnlink(this.getCacheFilePath(key));
+      }),
+      10
+    );
+
+    this.index = {};
+    await this.saveIndex();
+  }
+
   async all(): Promise<Map<string, CacheEntry>> {
     await this.ensureReady();
     const entries = new Map<string, CacheEntry>();

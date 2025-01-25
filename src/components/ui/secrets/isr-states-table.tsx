@@ -5,6 +5,8 @@ import {useDocumentWasVisible} from "@/utils/hooks/use-document-was-visibility.t
 import {httpClient} from "@/utils/http-client.ts";
 import type {ISRApiTypes} from "@/utils/api/isr.api.types.ts";
 import {App} from '@/constants/app.constants.ts'
+import {IoFolderOpenOutline, IoWarning} from "react-icons/io5";
+import {FcChargeBattery} from "react-icons/fc";
 
 type Props = {
   data: ISRApiTypes.CacheState[]
@@ -21,7 +23,7 @@ export default function IsrStatesTable(props: Props) {
   }
 
   const handleDelete = (item: ISRApiTypes.CacheState) => {
-    httpClient.delete(`/api/secrets/isr/`, {data: {key: item.key}})
+    httpClient.delete(`/api/secrets/isr`, {data: {key: item.key}})
       .then(() => {
         getCaches();
       })
@@ -31,8 +33,22 @@ export default function IsrStatesTable(props: Props) {
     window.open(`${App.BASE_URL}${item.key}`, "_blank")
   }
 
-  const handleForceUpdate = () => {
-    httpClient.get(`/api/secrets/isr/update`)
+  const handleRegenerate = () => {
+    httpClient.get(`/api/secrets/isr/regenerate`)
+      .then(() => {
+        getCaches();
+      })
+  }
+
+  const handleCleanUp = () => {
+    httpClient.delete(`/api/secrets/isr`, {data: null})
+      .then(() => {
+        getCaches();
+      })
+  }
+
+  const handleInspect = () => {
+    httpClient.get(`/api/secrets/isr/inspect`)
       .then(() => {
         getCaches();
       })
@@ -42,22 +58,30 @@ export default function IsrStatesTable(props: Props) {
     return `${App.BASE_URL}${item.key}`
   }
 
+  const isDev = App.DEV
+
   useDocumentWasVisible(() => {
     getCaches();
   })
 
   return <div className={"flex flex-col gap-2 p-2"}>
     <div className={"flex flex-row items-center justify-between"}>
-      <Chip color="warning" variant="solid">
+      <Chip size={"lg"} color="warning" variant="solid">
         ISR States
       </Chip>
       <ButtonGroup>
-        <Button onPress={handleForceUpdate} color="primary">
-          Force Update
+        <Button onPress={handleRegenerate} className={"bg-[#66a021] text-white"}>
+          <FcChargeBattery/>
+          Regenerate
         </Button>
-        <Button color="danger">
-          Reset
+        <Button onPress={handleCleanUp} color="danger">
+          <IoWarning/>
+          Clear
         </Button>
+        {isDev && <Button onPress={handleInspect} color="default">
+          <IoFolderOpenOutline/>
+          Inspect
+        </Button>}
       </ButtonGroup>
     </div>
     <Table

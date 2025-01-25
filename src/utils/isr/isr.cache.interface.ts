@@ -7,6 +7,8 @@ export interface ISRCache {
 
   cleanUp(): Promise<void>;
 
+  clear(): Promise<void>;
+
   all(): Promise<Map<string, CacheEntry>>;
 }
 

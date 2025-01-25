@@ -31,6 +31,10 @@ export class ISRService {
   cleanUp() {
     return this.cache.cleanUp();
   }
+
+  clear() {
+    return this.cache.clear();
+  }
 }
 
 const cache = new IsrCacheFilesystem()

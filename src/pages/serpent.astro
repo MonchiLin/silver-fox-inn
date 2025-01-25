@@ -15,7 +15,7 @@ if (Astro.request.method === "POST") {
   if (secret !== App.SECRET) {
     errMsg = "Invalid secret";
   } else {
-    Astro.cookies.set("silver-fox-inn__secret", secret)
+    Astro.cookies.set(App.SECRET_COOKIE_KEY, secret)
     if (to) {
       return Astro.redirect(to)
     } else {

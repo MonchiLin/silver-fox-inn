@@ -3,15 +3,20 @@ import {Result} from "@/utils/result.ts";
 import {isrService} from "@/utils/isr/isr.server.ts";
 
 export const GET: APIRoute = async () => {
-  return Result.JSONResponse(isrService.all());
+  return Result.JSONResponse(await isrService.all());
 }
 
 export const DELETE: APIRoute = async ({request}) => {
-  const body = await request.json()
-  if (body.key) {
-    isrService.del(body.key)
+  let body
+  try {
+    body = await request.json()
+  } catch (e) {
+  }
+
+  if (body?.key) {
+    await isrService.del(body.key)
   } else {
-    isrService.cleanUp();
+    await isrService.clear();
   }
   return Result.JSONResponse(null);
 }
