@@ -24,9 +24,7 @@ console.log("url", Astro.url.origin + "/api/notion/pages/" + Astro.params.pageId
 
 Astro.locals.cache();
 
-const data = (await httpClient.get<NotionApiTypes.GetPageResponse>("/api/notion/pages/" + Astro.params.pageId, {
-  baseURL: Astro.url.origin
-})).$;
+const data = (await fetch(Astro.url.origin + "/api/notion/pages/" + Astro.params.pageId)).json();
 
 ---
 
