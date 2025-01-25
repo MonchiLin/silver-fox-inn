@@ -21,8 +21,7 @@ export const GET: APIRoute = async ({params, request}) => {
     const result = await cachedResponse.state.json()
     return Result.JSONResponse(result);
   }
-  const response = await NotionApi.api.getPage(params.pageId!)
-
+  const response = await NotionApi.getPage(params.pageId!)
   const blob = new Blob([JSON.stringify(response, null, 2)], {type: 'application/json'});
   const init = {status: 200, statusText: "success"};
   await isrService.set(pathname, new Response(blob, init), ISR.SFI_ISR_TIMEOUT_IN_MS)

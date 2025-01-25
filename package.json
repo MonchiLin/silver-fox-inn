@@ -20,6 +20,7 @@
     "@notionhq/client": "2.2.15",
     "@uidotdev/usehooks": "^2.4.1",
     "astro": "5.1.9",
+    "async-mutex": "^0.5.0",
     "axios": "1.7.9",
     "clsx": "2.1.1",
     "dayjs": "1.11.13",

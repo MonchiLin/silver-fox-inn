@@ -5,8 +5,10 @@ import {useDocumentWasVisible} from "@/utils/hooks/use-document-was-visibility.t
 import {httpClient} from "@/utils/http-client.ts";
 import type {ISRApiTypes} from "@/utils/api/isr.api.types.ts";
 import {App} from '@/constants/app.constants.ts'
-import {IoFolderOpenOutline, IoWarning} from "react-icons/io5";
+import {IoFolderOpenOutline} from "react-icons/io5";
 import {FcChargeBattery} from "react-icons/fc";
+import {GoTrash} from "react-icons/go";
+import {LuSunMoon} from "react-icons/lu";
 
 type Props = {
   data: ISRApiTypes.CacheState[]
@@ -66,7 +68,7 @@ export default function IsrStatesTable(props: Props) {
 
   return <div className={"flex flex-col gap-2 p-2"}>
     <div className={"flex flex-row items-center justify-between"}>
-      <Chip size={"lg"} color="warning" variant="solid">
+      <Chip size={"lg"} color="warning" variant="solid" avatar={<LuSunMoon />}>
         ISR States
       </Chip>
       <ButtonGroup>
@@ -75,7 +77,7 @@ export default function IsrStatesTable(props: Props) {
           Regenerate
         </Button>
         <Button onPress={handleCleanUp} color="danger">
-          <IoWarning/>
+          <GoTrash/>
           Clear
         </Button>
         {isDev && <Button onPress={handleInspect} color="default">
