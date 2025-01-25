@@ -20,6 +20,7 @@ export function getStaticPaths() {
 
 console.log("Notion.NOTION_PAGES", Notion.NOTION_PAGES)
 console.log("getStaticPaths", getStaticPaths())
+console.log("url", Astro.url.origin + "/api/notion/pages/" + Astro.params.pageId)
 
 Astro.locals.cache();
 
