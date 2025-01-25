@@ -1,10 +1,12 @@
 import type {CacheEntry, ISRCache} from "@/utils/isr/isr.cache.interface.ts";
+import fs from "fs";
 
 export class IsrCacheFilesystem implements ISRCache {
   private cache: Map<string, CacheEntry> = new Map();
 
   constructor() {
-    setInterval(() => this.cleanUp(), 60 * 1000);
+
+
   }
 
   get(key: string): CacheEntry | undefined {

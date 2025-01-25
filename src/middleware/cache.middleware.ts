@@ -1,7 +1,19 @@
 import {defineMiddleware} from "astro:middleware";
 import {isrService} from "@/utils/isr/isr.server.ts";
-import {App} from "@/constants/app.constants.ts";
 import type {APIContext} from "astro";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const PROJECT_ROOT = path.resolve(__dirname, '../..')
+
+function getCacheRoot() {
+  if (import.meta.env.DEV) {
+    return path.join(PROJECT_ROOT, 'public', 'cache') // 开发环境使用源码目录
+  }
+
+  return path.join(PROJECT_ROOT, 'dist', 'isr')
+}
 
 const shouldSkipCache = (context: APIContext) => {
   // if (App.DEV) return true;
@@ -11,6 +23,10 @@ const shouldSkipCache = (context: APIContext) => {
 };
 
 export const cacheMiddleware = defineMiddleware(async (context, next) => {
+
+  const filePath = path.join(getCacheRoot(), `xx.json`)
+  console.log("filePath", process.cwd())
+
   const key = context.url.pathname;
   let ttl: undefined | number;
   context.locals.cache = (seconds: number = 60) => (ttl = seconds);
