@@ -15,7 +15,7 @@ const shouldSkipCache = (context: APIContext) => {
 export const cacheMiddleware = defineMiddleware(async (context, next) => {
   const filePath = path.join(App.ISR_CACHE_PATH, new Date().getTime() + ".json");
   console.log("filePath", filePath)
-  await fs.writeFile(filePath, "11")
+  // await fs.writeFile(filePath, "11")
 
   const key = context.url.pathname;
   let ttl: undefined | number;

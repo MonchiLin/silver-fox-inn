@@ -26,10 +26,9 @@ export const secretMiddleware = defineMiddleware(async (context, next) => {
   if (shouldSkipAuth(context)) {
     return next();
   }
-  const cookie = context.request.headers.get("cookie") || ""
+
   if (context.routePattern.startsWith("/secrets")) {
-    const cookies = cookieToObject(cookie)
-    const secret = cookies["silver-fox-inn__secret"];
+    const secret = context.cookies.get("silver-fox-inn__secret")?.value;
 
     if (!secret || secret !== App.SECRET) {
       return context.redirect(`/serpent?to=${context.routePattern}`, 301);

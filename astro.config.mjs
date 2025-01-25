@@ -7,8 +7,8 @@ import {loadEnv} from "vite";
 import sitemap from '@astrojs/sitemap';
 import compressor from 'astro-compressor';
 import netlify from '@astrojs/netlify';
-
 import node from '@astrojs/node';
+import {keepIsr} from "./build/keep-isr";
 
 // @ts-ignore
 const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
@@ -16,7 +16,9 @@ const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 const argv = process.argv
 
 /** @type {import('astro').AstroIntegration | null} */
-let adapter;
+let adapter = node({
+  mode: 'standalone'
+})
 
 if (argv.includes("--adapter")) {
   if (argv.includes("vercel")) {
@@ -32,15 +34,7 @@ if (argv.includes("--adapter")) {
       imageCDN: true,
       cacheOnDemandPages: true,
     })
-  } else {
-    adapter = node({
-      mode: 'standalone'
-    })
   }
-} else {
-  adapter = node({
-    mode: 'standalone'
-  })
 }
 
 // https://astro.build/config
@@ -49,4 +43,9 @@ export default defineConfig({
   adapter: adapter,
   output: "server",
   site: env.PUBLIC_HOSTING_URL,
+  vite: {
+    plugins: [
+      keepIsr(),
+    ]
+  }
 });
