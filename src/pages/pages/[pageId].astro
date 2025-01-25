@@ -23,7 +23,9 @@ console.log("getStaticPaths", getStaticPaths())
 
 Astro.locals.cache();
 
-const data = (await httpClient.get<NotionApiTypes.GetPageResponse>("/api/notion/pages/" + Astro.params.pageId)).$;
+const data = (await httpClient.get<NotionApiTypes.GetPageResponse>("/api/notion/pages/" + Astro.params.pageId, {
+  baseURL: Astro.url.origin
+})).$;
 
 ---
 
