@@ -38,3 +38,5 @@ export const App = {
   PUBLIC_PATH: getCacheRoot(),
   ISR_CACHE_PATH: getISRCacheRoot(),
 } as const
+
+console.log("App", App)
