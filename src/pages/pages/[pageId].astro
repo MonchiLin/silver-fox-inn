@@ -22,7 +22,7 @@ export function getStaticPaths() {
     });
 }
 
-Astro.locals.cache(60);
+Astro.locals.cache();
 
 const data = (await httpClient.get<NotionApiTypes.GetPageResponse>("/api/notion/pages/" + Astro.params.pageId)).$;
 ---

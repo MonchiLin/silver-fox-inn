@@ -8,7 +8,6 @@ import sitemap from '@astrojs/sitemap';
 import compressor from 'astro-compressor';
 import netlify from '@astrojs/netlify';
 import node from '@astrojs/node';
-import {keepIsr} from "./build/keep-isr";
 
 // @ts-ignore
 const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
@@ -43,9 +42,4 @@ export default defineConfig({
   adapter: adapter,
   output: "server",
   site: env.PUBLIC_HOSTING_URL,
-  vite: {
-    plugins: [
-      keepIsr(),
-    ]
-  }
 });

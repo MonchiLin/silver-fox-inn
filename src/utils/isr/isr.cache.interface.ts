@@ -1,13 +1,13 @@
 export interface ISRCache {
-  get(key: string): CacheEntry | undefined;
+  get(key: string): Promise<CacheEntry | undefined>;
 
-  set(key: string, value: Response, ttl: number): void;
+  set(key: string, value: Response, ttl: number): Promise<void>;
 
-  del(key: string): void;
+  del(key: string): Promise<void>;
 
-  cleanUp(): void;
+  cleanUp(): Promise<void>;
 
-  all(): Map<string, CacheEntry>;
+  all(): Promise<Map<string, CacheEntry>>;
 }
 
 export type CacheEntry = {

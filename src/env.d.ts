@@ -11,6 +11,8 @@ interface ImportMetaEnv {
   readonly WOLAI_OAUTH_CLIENT_SECRET: string;
   readonly APP_SECRET: string;
   readonly PUBLIC_HOSTING_URL: string;
+  readonly SFI_ISR_BACKEND: "File" | "Memory";
+  readonly SFI_ISR_TIMEOUT_IN_SECONDS: number;
 }
 
 interface ImportMeta {
