@@ -24,10 +24,22 @@ console.log("url", Astro.url.origin + "/api/notion/pages/" + Astro.params.pageId
 
 Astro.locals.cache();
 
-const data = (await ((await fetch(Astro.url.origin + "/api/notion/pages/" + Astro.params.pageId)).json())).$;
+let result
+
+try {
+  result = await fetch(Astro.url.origin + "/api/notion/pages/" + Astro.params.pageId)
+} catch (e) {
+  console.error("Failed to fetch", e)
+}
+
+try {
+  let data = (await result.json()).$;
+} catch (e) {
+  console.error("Failed to parse", e)
+}
 
 ---
 
 <Layout>
-  <NotionRenderer recordMap={data} fullPage={true} darkMode={false}/>
+  <!--<NotionRenderer recordMap={data} fullPage={true} darkMode={false}/>-->
 </Layout>
