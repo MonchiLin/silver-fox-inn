@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
-    "build:vercel": "bunx --bun astro build --adapter vercel",
+    "build:vercel": "astro build --adapter vercel",
     "build:netlify": "bunx --bun astro build --adapter netlify",
     "preview": "astro preview",
     "astro": "bunx --bun astro"
