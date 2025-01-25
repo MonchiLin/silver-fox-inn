@@ -1,6 +1,7 @@
 ---
 import WebsiteConfig from "../../website.config";
 import PolyfillLoader from "@/components/polyfill-loader";
+import {Toaster} from 'react-hot-toast';
 
 export interface Props {
   title: string;
@@ -23,6 +24,7 @@ const {title = WebsiteConfig.title, description = WebsiteConfig.description} = A
 <body>
 <slot/>
 <PolyfillLoader client:only="react"/>
+<Toaster client:only="react"/>
 </body>
 </html>
 

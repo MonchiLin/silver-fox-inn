@@ -4,6 +4,8 @@ import {Result} from "@/utils/result.ts";
 import {Notion} from "@/constants/notion.constants.ts";
 import {NotionLib} from "@/venders/notion-lib.ts";
 
+export const prerender = true;
+
 export function getStaticPaths() {
   return Notion.NOTION_DATABASES
     .map(i => {

@@ -3,6 +3,8 @@ import {NotionApi} from "@/venders/notion-api.ts";
 import {Result} from "@/utils/result.ts";
 import {Notion} from "@/constants/notion.constants.ts";
 
+export const prerender = true;
+
 export function getStaticPaths() {
   return Notion.NOTION_PAGES
     .map(i => {

@@ -13,6 +13,8 @@ import 'prismjs/themes/prism-tomorrow.css'
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
 
+export const prerender = true;
+
 export function getStaticPaths() {
   return Notion.NOTION_PAGES
     .map(i => {

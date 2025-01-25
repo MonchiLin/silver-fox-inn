@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {Button, Form, Alert, Input} from "@heroui/react";
+import {App} from "../constants/app.constants";
+
+export const prerender = false
+
+const to = Astro.url.searchParams.get("to")
+
+let errMsg = ""
+
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+  const secret = data.get("secret");
+  if (secret !== App.SECRET) {
+    errMsg = "Invalid secret";
+  } else {
+    Astro.cookies.set("silver-fox-inn__secret", secret)
+    if (to) {
+      return Astro.redirect(to)
+    } else {
+      return Astro.redirect("/")
+    }
+  }
+}
+---
+
+<Layout>
+  <div class="w-full h-full flex flex-row items-center justify-center">
+    <Form
+      validationBehavior="native"
+      method="post"
+      className="w-full max-w-xs items-center"
+      client:only="react"
+      onSubmit={(e) => e.preventDefault()}
+    >
+      {errMsg &&
+        <Alert color="danger" title={errMsg}/>}
+      <Input
+        isRequired
+        label="Your Secret"
+        labelPlacement="outside"
+        name="secret"
+        placeholder="********"
+        type="password"
+        errorMessage={`This field is required`}
+        className="w-full"
+      />
+      <Button type="submit" variant="bordered">
+        Submit
+      </Button>
+    </Form>
+  </div>
+</Layout>
