@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --host",
-    "build": "astro build",
+    "build": "astro build --verbose",
     "build:vercel": "astro build --adapter vercel",
     "build:netlify": "bunx --bun astro build --adapter netlify",
     "preview": "astro preview",

@@ -15,11 +15,11 @@ export const secretMiddleware = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  if (context.routePattern.startsWith("/secrets")) {
+  if (context.url.pathname.startsWith("/secrets")) {
     const secret = context.cookies.get(App.SECRET_COOKIE_KEY)?.value;
 
     if (!secret || secret !== App.SECRET) {
-      return context.redirect(`/serpent?to=${context.routePattern}`, 301);
+      return context.redirect(`/serpent?to=${context.url.pathname}`, 301);
     }
   }
   return next();
