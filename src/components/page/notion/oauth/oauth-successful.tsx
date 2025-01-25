@@ -2,7 +2,7 @@ import {type NotionApiTypes} from "@/utils/api/notion.api.types.ts";
 import SearchResponseTable from "@/components/ui/notion/search-response-table.tsx";
 import {Link, Snippet} from "@heroui/react";
 import {getEnvFileBlobURL} from "@/utils/setup.ts";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import type {Selection} from "@react-types/shared/src/selection";
 
 type Props = {
@@ -19,9 +19,20 @@ type NotionTableResult = {
 export default function OAuthSuccessful(props: Props) {
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
+  const getAllSelectedKeys = () => {
+    return props
+      .searchResponse
+      .results
+      .map(item => item.id);
+  }
+
+  useEffect(() => {
+    setSelectedKeys(getAllSelectedKeys())
+  }, [props])
+
   const onSelectionChange = (selection: Selection) => {
     if (selection === "all") {
-      setSelectedKeys(props.searchResponse.results.map(item => item.id));
+      setSelectedKeys(getAllSelectedKeys());
     } else {
       setSelectedKeys(Array.from(selection.values()) as string[]);
     }
