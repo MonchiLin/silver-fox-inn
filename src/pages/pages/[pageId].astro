@@ -24,6 +24,7 @@ console.log("getStaticPaths", getStaticPaths())
 Astro.locals.cache();
 
 const data = (await httpClient.get<NotionApiTypes.GetPageResponse>("/api/notion/pages/" + Astro.params.pageId)).$;
+
 ---
 
 <Layout>
