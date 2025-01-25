@@ -32,14 +32,19 @@ try {
   console.error("Failed to fetch", e)
 }
 
+let data
 try {
-  let data = (await result.json()).$;
+  if (result) {
+    data = (await result.json()).$;
+  } else {
+    console.error("result is null")
+  }
 } catch (e) {
   console.error("Failed to parse", e)
 }
-
 ---
 
 <Layout>
-  <!--<NotionRenderer recordMap={data} fullPage={true} darkMode={false}/>-->
+  {data &&
+    <NotionRenderer recordMap={data} fullPage={true} darkMode={false}/>}
 </Layout>
