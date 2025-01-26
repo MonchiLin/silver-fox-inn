@@ -41,5 +41,5 @@ export default defineConfig({
   integrations: [react(), tailwind(), sitemap(), compressor()],
   adapter: adapter,
   output: "server",
-  site: env.PUBLIC_HOSTING_URL,
+  site: env.SFI_HOSTING_URL,
 });
