@@ -17,7 +17,7 @@ export function getStaticPaths() {
 
 const shouldSkipCache = () => {
   if (App.DEV && !ISR.SFI_ISR_ENABLE_ON_DEV) return true;
-  return false;
+  return true;
 };
 
 export const GET: APIRoute = async ({params, request}) => {
