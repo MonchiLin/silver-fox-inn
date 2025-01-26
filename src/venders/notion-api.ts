@@ -10,7 +10,6 @@ export namespace NotionApi {
   export const api = new NotionCompatAPI(new Client({auth: Notion.NOTION_ACCESS_TOKEN}))
 
   export const getPage = withRateLimit((rawPageId: string) => {
-    console.log("Fetching page", rawPageId)
     return api.getPage(rawPageId)
   })
 

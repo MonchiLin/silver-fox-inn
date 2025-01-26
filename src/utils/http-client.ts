@@ -10,7 +10,7 @@ export class HttpClient {
 
   constructor() {
     this.axios = Axios.create({
-      baseURL: typeof window === "undefined" ? "" : App.BASE_URL,
+      baseURL: App.BASE_URL,
       adapter: "fetch",
     })
 
