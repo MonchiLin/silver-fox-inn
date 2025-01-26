@@ -36,7 +36,7 @@ export default function IsrStatesTable(props: Props) {
   }
 
   const handleRegenerate = () => {
-    httpClient.get(`/api/secrets/isr/regenerate`)
+    httpClient.get(`/api/secrets/isr/revalidation`)
       .then(() => {
         getCaches();
       })
@@ -100,7 +100,7 @@ export default function IsrStatesTable(props: Props) {
           caches.map((item) => {
             return <TableRow key={item.key}>
               <TableCell>{item.key}</TableCell>
-              <TableCell className={"capitalize"}>{new Date(item.expiration).toLocaleString()}</TableCell>
+              <TableCell className={"capitalize"}>{new Date(item.timestamp + item.ttl).toLocaleString()}</TableCell>
               <TableCell>
                 <div className="relative flex items-center gap-2">
                   <DeleteIcon onClick={() => handleDelete(item)} className="text-lg text-danger cursor-pointer active:opacity-50"/>

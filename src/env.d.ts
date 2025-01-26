@@ -12,7 +12,7 @@ interface ImportMetaEnv {
   readonly SFI_SECRET?: string;
   readonly SFI_HOSTING_URL: string;
   readonly SFI_ISR_BACKEND?: "File" | "Memory";
-  readonly SFI_ISR_TIMEOUT_IN_SECONDS?: number;
+  readonly SFI_ISR_TTL?: number;
   readonly SFI_ISR_ENABLE_ON_DEV?: "Y" | "N";
 }
 

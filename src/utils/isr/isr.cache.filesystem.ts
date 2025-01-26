@@ -1,6 +1,6 @@
 import {readFile, rename, unlink, writeFile} from "fs/promises";
 import {join} from "path";
-import type {CacheEntry, ISRCache} from "@/utils/isr/isr.cache.interface.ts";
+import type {CacheEntry, CacheEntryPlain, ISRCache} from "@/utils/isr/isr.cache.interface.ts";
 import {ISR} from "@/constants/isr.constants.ts";
 
 type CacheMeta = {
@@ -13,10 +13,12 @@ const SANITIZE_REGEX = /[^a-zA-Z0-9\-_~.]/g;
 
 export class IsrCacheFilesystem implements ISRCache {
   private readonly cachePath: string;
+  private readonly version: number;
   private index: Record<string, CacheMeta> = {};
   private indexLoaded = false;
 
-  constructor() {
+  constructor(cachePath: string, version: number) {
+    this.version = version;
     this.cachePath = ISR.ROOT_PATH;
     this.loadIndex().catch(console.error);
   }
@@ -78,14 +80,17 @@ export class IsrCacheFilesystem implements ISRCache {
     }
   }
 
-  private parseResponse(data: any): CacheEntry {
+  private parseResponse(data: CacheEntryPlain): CacheEntry {
+
     return {
       state: new Response(data.state.body, {
         status: data.state.status,
         statusText: data.state.statusText,
         headers: new Headers(data.state.headers),
       }),
-      expiration: data.expiration
+      version: this.version,
+      timestamp: data.ts,
+      ttl: data.ttl,
     };
   }
 
@@ -97,9 +102,10 @@ export class IsrCacheFilesystem implements ISRCache {
       const data = await this.safeReadFile(filePath);
       if (!data) return undefined;
 
-      const parsed = JSON.parse(data);
+      const parsed = JSON.parse(data) as CacheEntryPlain;
+      const expiration = parsed.ts + parsed.ttl
 
-      if (parsed.expiration < Date.now()) {
+      if (expiration < Date.now()) {
         await this.safeUnlink(filePath);
         delete this.index[key];
         return undefined;
@@ -129,7 +135,7 @@ export class IsrCacheFilesystem implements ISRCache {
       body
     };
 
-    const expiration = Date.now() + ttl;
+    const now = Date.now()
     const entry = {
       state: {
         status: state.status,
@@ -137,11 +143,13 @@ export class IsrCacheFilesystem implements ISRCache {
         headers: state.headers,
         body: body,
       },
-      expiration
-    };
+      ts: now,
+      ttl: ttl,
+    } as CacheEntryPlain;
 
     await writeFile(tmpPath, JSON.stringify(entry));
     await rename(tmpPath, filePath);
+    const expiration = now + (ttl * 1000);
 
     this.index[key] = {
       expiration,

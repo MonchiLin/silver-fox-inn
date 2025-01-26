@@ -3,6 +3,7 @@ import {isrService} from "@/utils/isr/isr.server.ts";
 import type {APIContext} from "astro";
 import {ISR} from "@/constants/isr.constants.ts";
 import {App} from "@/constants/app.constants.ts";
+import {CacheControl} from "@/venders/cache-control.ts";
 
 const shouldSkipCache = (context: APIContext) => {
   if (App.DEV && !ISR.SFI_ISR_ENABLE_ON_DEV) return true;
@@ -15,20 +16,27 @@ const shouldSkipCache = (context: APIContext) => {
 };
 
 export const isrMiddleware = defineMiddleware(async (context, next) => {
-  const key = context.url.pathname;
   let ttl: undefined | number;
-  context.locals.cache = (seconds = ISR.SFI_ISR_TIMEOUT_IN_MS) => (ttl = seconds);
+  context.locals.cache = (seconds = ISR.SFI_ISR_TTL) => (ttl = seconds);
 
   if (shouldSkipCache(context)) return next();
+
+  const key = context.url.pathname;
   const cachedResponse = await isrService.get(key);
-  if (cachedResponse) {
+  if (cachedResponse && !CacheControl.shouldBypassCache(context.request)) {
     return cachedResponse.state;
   }
-
   const response = await next();
+  const expiration = (ISR.SFI_ISR_TTL * 1000) + Date.now()
+  const expires = new Date(expiration).toUTCString()
+  response.headers.set("Expires", expires)
+  const cacheControl = CacheControl.update(response.headers, {
+    "max-age": ISR.SFI_ISR_TTL
+  })
+  response.headers.set("cache-control", cacheControl)
   if (ttl !== undefined) {
     await isrService.set(key, response, ttl)
   }
 
-  return next();
+  return response;
 });

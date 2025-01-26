@@ -13,6 +13,26 @@ export interface ISRCache {
 }
 
 export type CacheEntry = {
+  // cache value
   state: Response;
-  expiration: number;
+  // timestamp
+  timestamp: number;
+  // version
+  version: number
+  ttl: number
+};
+
+export type CacheEntryPlain = {
+  // cache value
+  state: {
+    status: number,
+    statusText: string,
+    headers: Record<string, string>,
+    body: string,
+  };
+  ttl: number,
+  // timestamp
+  ts: number;
+  // version
+  v: number
 };

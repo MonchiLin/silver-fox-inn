@@ -46,5 +46,5 @@ export class ISRService {
   }
 }
 
-const cache = new IsrCacheFilesystem()
+const cache = new IsrCacheFilesystem(ISR.ROOT_PATH, ISR.VERSION)
 export const isrService = new ISRService(cache);

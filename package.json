@@ -22,12 +22,15 @@
     "astro": "5.1.9",
     "async-mutex": "^0.5.0",
     "axios": "1.7.9",
+    "cache-control-parser": "^2.0.6",
     "clsx": "2.1.1",
     "dayjs": "1.11.13",
     "framer-motion": "12.0.1",
+    "http-cache-semantics": "^4.1.1",
     "lodash-es": "^4.17.21",
     "nanoid": "5.0.9",
     "nanostores": "^0.11.3",
+    "node-schedule": "^2.1.1",
     "notion-client": "7.1.6",
     "notion-compat": "7.1.6",
     "notion-utils": "7.1.6",
@@ -38,6 +41,7 @@
     "react-notion-x": "7.2.6"
   },
   "devDependencies": {
+    "@types/http-cache-semantics": "^4.0.4",
     "@astrojs/netlify": "^6.1.0",
     "@astrojs/react": "4.1.6",
     "@astrojs/tailwind": "5.1.5",
