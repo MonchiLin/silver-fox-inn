@@ -22,7 +22,9 @@ console.log("url", Astro.url.origin + "/api/notion/pages/" + Astro.params.pageId
 
 Astro.locals.cache();
 
-const data = (await httpClient.get(`/api/notion/pages/${Astro.params.pageId}`)).$
+const data = (await httpClient.get(`/api/notion/pages/${Astro.params.pageId}`, {
+  baseURL: "http://localhost:4321"
+})).$
 ---
 
 <Layout>
