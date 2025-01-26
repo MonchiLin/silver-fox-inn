@@ -5,6 +5,8 @@ import {isrService} from "@/utils/isr/isr.server.ts";
 import {ISR} from "@/constants/isr.constants.ts";
 import {App} from "@/constants/app.constants.ts";
 
+export const prerender = false;
+
 const shouldSkipCache = () => {
   if (App.DEV && !ISR.SFI_ISR_ENABLE_ON_DEV) return true;
   return false;
