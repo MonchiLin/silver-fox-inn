@@ -9,15 +9,6 @@ import 'react-notion-x/src/styles.css'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'katex/dist/katex.min.css'
 
-export const prerender = true;
-
-export function getStaticPaths() {
-  return Notion.NOTION_PAGES
-    .map(i => {
-      return {params: {pageId: i}}
-    });
-}
-
 console.log("url", Astro.url.origin + "/api/notion/pages/" + Astro.params.pageId)
 
 Astro.locals.cache();

@@ -7,8 +7,9 @@ import {httpClient} from "@/utils/http-client";
 export const prerender = false
 const accessToken = Astro.url.searchParams.get("accessToken");
 
-const searchResponse = (await httpClient
-  .get<NotionApiTypes.SearchResponse>(`/api/notion/search?auth=${accessToken}`)).$;
+const searchResponse = (await httpClient.get<NotionApiTypes.SearchResponse>(`/api/notion/search?auth=${accessToken}`, {
+  baseURL: Astro.url.origin
+})).$;
 ---
 
 <Layout>
