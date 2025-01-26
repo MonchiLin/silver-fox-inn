@@ -1,7 +1,11 @@
 ---
 import WebsiteConfig from "../../website.config";
 import PolyfillLoader from "@/components/polyfill-loader";
+import GoogleAnalytics from "@/components/integrations/google-analytics.astro";
+import {GoogleConstants} from "../constants/google.constants";
 import {Toaster} from 'react-hot-toast';
+import {BuildingId} from "../components/ui/building-id";
+import {isSSG} from "../utils/isr/isr-revalidation";
 
 export interface Props {
   title: string;
@@ -9,6 +13,7 @@ export interface Props {
 }
 
 const {title = WebsiteConfig.title, description = WebsiteConfig.description} = Astro.props;
+const GA_MEASUREMENT_ID = GoogleConstants.GA_MEASUREMENT_ID
 ---
 <!doctype html>
 <html lang="en">
@@ -20,11 +25,15 @@ const {title = WebsiteConfig.title, description = WebsiteConfig.description} = A
   <meta name="generator" content={Astro.generator}/>
   <link rel="sitemap" href="/sitemap-index.xml"/>
   <title>{title}</title>
+  {
+    GA_MEASUREMENT_ID &&
+    <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID}/>}
 </head>
 <body>
 <slot/>
 <PolyfillLoader client:only="react"/>
 <Toaster client:only="react"/>
+<BuildingId client:only="react"/>
 </body>
 </html>
 

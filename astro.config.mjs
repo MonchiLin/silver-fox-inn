@@ -8,9 +8,10 @@ import sitemap from '@astrojs/sitemap';
 import compressor from 'astro-compressor';
 import netlify from '@astrojs/netlify';
 import node from '@astrojs/node';
+import partytown from "@astrojs/partytown";
 
 // @ts-ignore
-const env = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const {SFI_HOSTING_URL,GA_MEASUREMENT_ID} = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 const argv = process.argv
 
@@ -38,8 +39,18 @@ if (argv.includes("--adapter")) {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), tailwind(), sitemap(), compressor()],
+  integrations: [
+    react(),
+    tailwind(),
+    sitemap(),
+    compressor(),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
+  ],
   adapter: adapter,
   output: "server",
-  site: env.SFI_HOSTING_URL,
+  site: SFI_HOSTING_URL,
 });

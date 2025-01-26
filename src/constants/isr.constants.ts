@@ -14,5 +14,6 @@ export const ISR = {
   SFI_ISR_BACKEND: import.meta.env.SFI_ISR_BACKEND || "File",
   SFI_ISR_TTL: SFI_ISR_TIMEOUT_IN_SECONDS,
   SFI_ISR_ENABLE_ON_DEV: SFI_ISR_ENABLE_ON_DEV === "" || SFI_ISR_ENABLE_ON_DEV === "y",
+  SFI_ISR_REVALIDATION_CRON: (import.meta.env.SFI_ISR_REVALIDATION_CRON || "0 0 * * *"),
   VERSION: 0,
 } as const

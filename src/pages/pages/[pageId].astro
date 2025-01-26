@@ -1,13 +1,10 @@
 ---
-import {Notion} from "@/constants/notion.constants";
 import Layout from "@/layouts/Layout.astro";
 import {httpClient} from "@/utils/http-client";
-import {NotionApiTypes} from "@/utils/api/notion.api.types";
-import {NotionRenderer} from 'react-notion-x'
-
 import 'react-notion-x/src/styles.css'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'katex/dist/katex.min.css'
+import {NotionRender} from "@/components/ui/notion/notion-render";
 
 Astro.locals.cache();
 
@@ -17,6 +14,5 @@ const data = (await httpClient.get(`/api/notion/pages/${Astro.params.pageId}`, {
 ---
 
 <Layout>
-  {data &&
-    <NotionRenderer recordMap={data} fullPage={true} darkMode={false}/>}
+  <NotionRender recordMap={data}/>
 </Layout>
