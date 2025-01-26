@@ -1,30 +1,19 @@
 import type {APIContext, APIRoute} from "astro"
 import {NotionApi} from "@/venders/notion-api.ts";
 import {Result} from "@/utils/result.ts";
-import {Notion} from "@/constants/notion.constants.ts";
 import {isrService} from "@/utils/isr/isr.server.ts";
 import {ISR} from "@/constants/isr.constants.ts";
 import {App} from "@/constants/app.constants.ts";
 
-export const prerender = true;
-
-export function getStaticPaths() {
-  return Notion.NOTION_PAGES
-    .map(i => {
-      return {params: {pageId: i}}
-    });
-}
-
 const shouldSkipCache = () => {
   if (App.DEV && !ISR.SFI_ISR_ENABLE_ON_DEV) return true;
-  return true;
+  return false;
 };
 
 export const GET: APIRoute = async ({params, request}) => {
   const pathname = new URL(request.url).pathname;
   if (shouldSkipCache()) {
     const response = await NotionApi.getPage(params.pageId!)
-    console.log("get data")
     return Result.JSONResponse(response);
   }
 
