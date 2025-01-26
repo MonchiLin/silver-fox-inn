@@ -24,6 +24,7 @@ export const GET: APIRoute = async ({params, request}) => {
   const pathname = new URL(request.url).pathname;
   if (shouldSkipCache()) {
     const response = await NotionApi.getPage(params.pageId!)
+    console.log("get data")
     return Result.JSONResponse(response);
   }
 

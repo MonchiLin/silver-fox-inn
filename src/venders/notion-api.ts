@@ -9,10 +9,10 @@ export namespace NotionApi {
 
   export const api = new NotionCompatAPI(new Client({auth: Notion.NOTION_ACCESS_TOKEN}))
 
-  export const getPage = (rawPageId: string) => {
+  export const getPage = withRateLimit((rawPageId: string) => {
     console.log("Fetching page", rawPageId)
     return api.getPage(rawPageId)
-  }
+  })
 
   export const getAccessToken = (code: string) => {
     const encoded = Buffer.from(`${Notion.NOTION_OAUTH_CLIENT_ID}:${Notion.NOTION_OAUTH_CLIENT_SECRET}`).toString("base64");
