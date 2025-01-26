@@ -11,7 +11,7 @@ const shouldSkipCache = (context: APIContext) => {
   // if (skipISROnDev) return true;
   if (context.request.method !== "GET") return true;
   if (context.url.pathname.startsWith("/now")) return false;
-  // if (context.url.pathname.startsWith("/pages")) return false;
+  if (context.url.pathname.startsWith("/pages")) return false;
   if (context.url.pathname.startsWith("/api/notion")) return false;
   if (context.url.pathname.startsWith("/api/notion/database")) return false;
   return true;
