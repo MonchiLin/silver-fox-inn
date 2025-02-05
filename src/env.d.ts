@@ -16,6 +16,7 @@ interface ImportMetaEnv {
   readonly SFI_ISR_ENABLE_ON_DEV?: "Y" | "N";
   readonly SFI_ISR_REVALIDATION_CRON?: string;
   readonly GA_MEASUREMENT_ID?: string;
+  readonly GA_PROPERTY_ID?: string;
 }
 
 interface ImportMeta {
