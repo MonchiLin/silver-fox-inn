@@ -2,13 +2,13 @@
 import {defineConfig} from 'astro/config';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
-import tailwind from '@astrojs/tailwind';
 import {loadEnv} from "vite";
 import sitemap from '@astrojs/sitemap';
 import compressor from 'astro-compressor';
 import netlify from '@astrojs/netlify';
 import node from '@astrojs/node';
 import partytown from "@astrojs/partytown";
+import tailwindcss from "@tailwindcss/vite";
 
 // @ts-ignore
 const {SFI_HOSTING_URL,GA_MEASUREMENT_ID} = loadEnv(process.env.NODE_ENV, process.cwd(), "");
@@ -41,7 +41,6 @@ if (argv.includes("--adapter")) {
 export default defineConfig({
   integrations: [
     react(),
-    tailwind(),
     sitemap(),
     compressor(),
     partytown({
@@ -53,4 +52,7 @@ export default defineConfig({
   adapter: adapter,
   output: "server",
   site: SFI_HOSTING_URL,
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
