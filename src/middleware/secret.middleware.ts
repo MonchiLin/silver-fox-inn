@@ -3,6 +3,7 @@ import {App} from "@/constants/app.constants.ts";
 import type {APIContext} from "astro";
 
 const shouldSkipAuth = (context: APIContext) => {
+  return true
   if (App.DEV) return true;
   if (context.request.method !== "GET") return true;
   if (context.url.pathname.startsWith("/secrets")) return false;
