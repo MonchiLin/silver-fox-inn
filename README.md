@@ -8,6 +8,12 @@
 
 [] Any analysis
 
+[] Search
+
+[] Index
+
+[] Quick Start
+
 ## Integrations
 
 ### Notion
