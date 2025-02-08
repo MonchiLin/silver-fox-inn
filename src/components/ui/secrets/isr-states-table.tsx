@@ -91,7 +91,7 @@ export default function IsrStatesTable(props: Props) {
       isStriped
     >
       <TableHeader>
-        <TableColumn>Key</TableColumn>
+        <TableColumn>Path</TableColumn>
         <TableColumn>Expiration At</TableColumn>
         <TableColumn><span/></TableColumn>
       </TableHeader>

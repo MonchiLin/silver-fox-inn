@@ -9,12 +9,13 @@ interface ImportMetaEnv {
   readonly NOTION_OAUTH_CLIENT_SECRET?: string;
   readonly WOLAI_OAUTH_CLIENT_ID?: string;
   readonly WOLAI_OAUTH_CLIENT_SECRET?: string;
-  readonly SFI_SECRET?: string;
-  readonly SFI_HOSTING_URL: string;
-  readonly SFI_ISR_BACKEND?: "File" | "Memory";
-  readonly SFI_ISR_TTL?: number;
-  readonly SFI_ISR_ENABLE_ON_DEV?: "Y" | "N";
-  readonly SFI_ISR_REVALIDATION_CRON?: string;
+  readonly APP_SECRET?: string;
+  readonly CRON_SECRET?: string;
+  readonly APP_HOSTING_URL: string;
+  readonly APP_ISR_BACKEND?: "File" | "Memory";
+  readonly APP_ISR_TTL?: number;
+  readonly APP_ISR_ENABLE_ON_DEV?: "Y" | "N";
+  readonly APP_ISR_REVALIDATION_CRON?: string;
   readonly GA_MEASUREMENT_ID?: string;
   readonly GA_PROPERTY_ID?: string;
 }

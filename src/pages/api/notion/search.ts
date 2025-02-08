@@ -9,6 +9,5 @@ export const GET: APIRoute<NotionApiTypes.SearchParameters> = async ({request}) 
   const searchParams = new URL(request.url).searchParams
   const params = Object.fromEntries(searchParams);
   const response = await NotionApi.api.client.search(params)
-
   return Result.JSONResponse(response);
 }

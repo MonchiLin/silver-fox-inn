@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/secrets/isr/revalidation",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
