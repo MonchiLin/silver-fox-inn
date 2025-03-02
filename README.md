@@ -14,6 +14,8 @@
 
 [] Quick Start
 
+[] Aliyun FC
+
 ## Integrations
 
 ### Notion
