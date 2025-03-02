@@ -9,16 +9,19 @@ let job: CronJob;
 
 export const setupMiddleware = defineMiddleware(async (context, next) => {
   if (!isrFolderExists) {
-    await fs.mkdir(ISR.ROOT_PATH, {recursive: true});
+    fs.mkdir(ISR.ROOT_PATH, {recursive: true})
+      .then(() => {
+        runSSG()
+      })
     isrFolderExists = true
+
   }
   if (!job) {
-    runSSG()
     job = new CronJob(
-      ISR.SFI_ISR_REVALIDATION_CRON,
+      ISR.APP_ISR_REVALIDATION_CRON,
       runISR,
       null,
-      true,
+      false,
     )
   }
   return next();

@@ -11,7 +11,7 @@ import partytown from "@astrojs/partytown";
 import tailwindcss from "@tailwindcss/vite";
 
 // @ts-ignore
-const {SFI_HOSTING_URL,GA_MEASUREMENT_ID} = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const {APP_HOSTING_URL} = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 const argv = process.argv
 
@@ -48,10 +48,19 @@ export default defineConfig({
         forward: ["dataLayer.push"],
       },
     }),
+    {
+      name: "inject-corn",
+      hooks: {
+        "astro:build:done": (options) => {
+          debugger
+          console.log("injecting corn", options)
+        }
+      }
+    }
   ],
   adapter: adapter,
   output: "server",
-  site: SFI_HOSTING_URL,
+  site: APP_HOSTING_URL,
   vite: {
     plugins: [tailwindcss()],
   },

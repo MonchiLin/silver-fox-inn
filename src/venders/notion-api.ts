@@ -7,7 +7,10 @@ import {withRateLimit} from "@/utils/rate-limiter.ts";
 
 export namespace NotionApi {
 
-  export const api = new NotionCompatAPI(new Client({auth: Notion.NOTION_ACCESS_TOKEN}))
+  export const api = new NotionCompatAPI(new Client({
+    auth: Notion.NOTION_ACCESS_TOKEN,
+    notionVersion: "2022-06-28"
+  }))
 
   export const getPage = withRateLimit((rawPageId: string) => {
     return api.getPage(rawPageId)
